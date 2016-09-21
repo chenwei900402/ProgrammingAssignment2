@@ -5,25 +5,29 @@
 
 makeCacheMatrix <- function(x = matrix()) {
        if(as.integer(sqrt(length(x))) != sqrt(length(x))){
-               message('This is not a square Matrix')
+              message('This is not a square Matrix')
        } else {
-               dim(x) <- c(sqrt(length(x)),sqrt(length(x)))
+              dim(x) <- c(sqrt(length(x)),sqrt(length(x)))
        }
-        w <- NULL
-        set <- function(y){
+       w <- NULL
+       #store the "Matrix" data and clear the cache w
+       set <- function(y){
                 x <<- y
                 w <<- NULL
         }
-        get <- function()x
-        setsolve <- function(solve){ w <<- solve}
-        getsolve <- function() w
-        list(set = set, get = get,
+       #Cache the "Matrix for retrieve
+       get <- function()x
+       #Inverse of the matrix, save to the parent environment
+       setsolve <- function(solve){ w <<- solve}
+       #Retrieve the inversion of matrix
+       getsolve <- function() w
+       list(set = set, get = get,
              setsolve = setsolve,
              getsolve = getsolve)    
 }
 
 
-## Do the inversion
+## Do the inversion calculation
 
 cacheSolve <- function(x, ...) {
         w <- x$getsolve()
